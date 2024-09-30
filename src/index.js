@@ -9,8 +9,21 @@ document.addEventListener("DOMContentLoaded", function() {
 function fetchDogsImg() {
     return fetch('https://dog.ceo/api/breeds/image/random/4')
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => {
+            renderDogsImg(data.message)
+        })
+        .catch(error => console.error('Error fetching dog images:', error));
   }
+
+function renderDogsImg(dogs) {
+    const div = document.getElementById('dog-image-container');
+    dogs.forEach(dog => {
+        console.log(dog);
+        const image = document.createElement('img');
+        image.src = dog;
+        div.appendChild(image);
+    })
+}
 
   function fetchBreedUrl() {
     return fetch('https://dog.ceo/api/breeds/list/all')
